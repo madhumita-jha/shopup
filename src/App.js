@@ -14,8 +14,8 @@ import Profile from './components/profile/profile';
 
 
 function App() {
+  const login = window.localStorage.getItem("isLoggedIn");
   return (
-    
     <div className="App">
       <CartProvider>
       <Navbar/>
@@ -24,9 +24,9 @@ function App() {
           <Route path="/category" element={<Category />} />
           <Route path="/fiction" element={<Fiction />} />
           <Route path="/cart" element={<Cart />}/>
-          <Route path="/login" element={<Login />}/>
+          <Route path="/login" element={login? <Profile /> : <Login />}/>
           <Route path="/register" element={<Register />}/>
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={login? <Profile /> : <Login />} />
         </Routes>
       <Footer/>
       </CartProvider>

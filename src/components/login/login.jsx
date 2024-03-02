@@ -9,7 +9,7 @@ const Login = () => {
     const [passlog, setPassLog] = useState('');
     const [loginStatus, setLoginStatus] = useState('');
     const navigate = useNavigate();
-    
+
     axios.defaults.withCredentials = true;
 
     useEffect(() => {
@@ -20,7 +20,9 @@ const Login = () => {
         })
     })
 
-    const login = () => {
+    const login = (e) => {
+        e.preventDefault();
+        window.localStorage.setItem("isLoggedIn", true)
         axios.post("http://localhost:3000/login", {
             email: emaillog, 
             password: passlog
