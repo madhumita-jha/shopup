@@ -114,7 +114,7 @@ app.get("/profile", (req,res) => {
         );
     } else {
         res.status(401).send({message: "Unauthorized"}); 
-    }
+    };
 });
 
 
