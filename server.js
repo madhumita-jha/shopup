@@ -24,7 +24,7 @@ app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(session({
-    key: "userId",
+    key: "id",
     secret: "secretkeyforsession724",
     resave: false,
     saveUninitialized: false,
@@ -95,6 +95,26 @@ app.post('/login', (req,res) => {
             }
         }
     );
+});
+
+app.get("/profile", (req,res) => {
+    console.log(req.session);
+    if(req.session.user){
+        const userId = req.session.user[0].id;
+        db.query(
+            "SELECT fullname, email FROM users WHERE id = ?",
+            [userId],
+            (err,result) => {
+                if(err) {
+                    res.status(500).send({ err: err });
+                } else {
+                    res.status(200).send(result[0]);
+                }
+            }
+        );
+    } else {
+        res.status(401).send({message: "Unauthorized"}); 
+    }
 });
 
 
