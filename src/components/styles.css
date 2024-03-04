@@ -206,6 +206,7 @@
     margin: 10px;
     cursor: pointer;
 }
+
 .profile{
     width: 100vh;
     height: 70vh;
@@ -218,6 +219,7 @@
 .profile h1{
     margin-left: 30%;
 }
+
 .userdetails button{
     width: 150px;
     height: 50px;
@@ -225,7 +227,7 @@
     color: white;
     border: none;
     border-radius: 8px;
-    margin: 100px 10px;
+    margin: 100px 80px;
     margin-left: 45px;
     cursor: pointer;
 }
@@ -234,6 +236,6 @@
 }
 .userdetails p {
     margin: 15px ;
-    margin-top: 50px;
+    margin-top: 70px;
     font-family:cursive;
 }
