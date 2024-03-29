@@ -4,11 +4,24 @@ import { books } from '../category/fiction';
 import CartItems from './CartItems';
 import { Link } from 'react-router-dom';
 import '../styles.css';
+import axios from 'axios';
 
 const Cart = () => {
   const { cartItems, getTotalAmt } = useContext(CartContext);
   const TotalAmt = getTotalAmt();
   const isCartEmpty = Object.values(cartItems).every((quantity) => quantity === 0);
+
+  const handleCheckout = async () => {
+    try {
+      const response = await axios.post('http://localhost:3000/create-checkout-session', {
+        cartItems: cartItems 
+      });
+      window.location = response.data.url; 
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
+    }
+  };
+
   return(
     <div className='category'>
     <div className='genre'>
@@ -27,9 +40,7 @@ const Cart = () => {
               <Link to="/category">
                 <button>Continue Shopping</button>
               </Link>
-              <Link to="/checkout">
-                <button>Checkout</button>
-              </Link>
+                <button onClick={handleCheckout}>Checkout</button>
             </div>
           )}
       </div>
