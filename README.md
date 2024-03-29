@@ -18,5 +18,5 @@ Shop Up is an eCommerce website built with React for the frontend and Node.js wi
 - **Authentication**: JSON Web Tokens (JWT)
 
 ## Project Video
-Check out this video to see a demo of our project:
+Check out this video to see a demo of my project:
 https://youtu.be/VJBJ0niXQSI
