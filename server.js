@@ -146,7 +146,7 @@ app.post('/create-checkout-session', async (req, res) => {
       } catch (error) {
         console.error('Error creating checkout session:', error);
         res.status(500).json({ error: 'Error creating checkout session' });
-      }
+    }
 });
 
 
