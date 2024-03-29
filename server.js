@@ -11,6 +11,8 @@ const session = require('express-session');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+const stripe = require('stripe')('sk_test_51OzbDhSB19eKwdsGvOOpNbSGBaF3WOFjadexs4dsABI16NhGlxwSvyknyh37Vl74XkLBJuvDGy13XCJiHbWTux1O00ZQWyORDJ');
+
 const app = express();
 app.use(express.json());
 
@@ -114,6 +116,36 @@ app.get("/profile", (req,res) => {
         );
     } else {
         res.status(401).send({message: "Unauthorized"}); 
+    };
+});
+
+const YOUR_DOMAIN = 'http://localhost:3001'; 
+
+app.post('/create-checkout-session', async (req, res) => {
+    try {
+        const totalAmt = parseFloat(req.body.totalAmt);
+    
+        const session = await stripe.checkout.sessions.create({
+          payment_method_types: ['card'],
+          line_items: [{
+            price_data: {
+              currency: 'inr', 
+              product_data: {
+                name: 'Total Amount'
+              },
+              unit_amount: 30000, 
+            },
+            quantity: 1,
+          }],
+          mode: 'payment',
+          success_url: `${YOUR_DOMAIN}?success=true`,
+          cancel_url: `${YOUR_DOMAIN}?canceled=true`,
+        });
+    
+        res.json({ url: session.url });
+      } catch (error) {
+        console.error('Error creating checkout session:', error);
+        res.status(500).json({ error: 'Error creating checkout session' });
     }
 });
 
